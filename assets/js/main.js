@@ -1,5 +1,5 @@
 /*
-	Binary by TEMPLATED
+	Spatial by TEMPLATED
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
@@ -17,8 +17,7 @@
 	$(function() {
 
 		var	$window = $(window),
-			$body = $('body'),
-			$header = $('#header');
+			$body = $('body');
 
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
@@ -32,10 +31,6 @@
 		// Fix: Placeholder polyfill.
 			$('form').placeholder();
 
-		// Fix: IE.
-			if (skel.vars.browser == 'ie')
-				$body.addClass('is-ie');
-
 		// Prioritize "important" elements on medium.
 			skel.on('+medium -medium', function() {
 				$.prioritize(
@@ -44,42 +39,34 @@
 				);
 			});
 
-		// Scrolly.
-			$('.scrolly').scrolly({
-				speed: 1000,
-				offset: $header.outerHeight() -1
-			});
+		// Off-Canvas Navigation.
 
-		// Menu.
-			$('#menu')
-				.append('<a href="#menu" class="close"></a>')
-				.appendTo($body)
-				.panel({
-					delay: 500,
-					hideOnClick: true,
-					hideOnSwipe: true,
-					resetScroll: true,
-					resetForms: true,
-					side: 'right'
-				});
+			// Navigation Panel Toggle.
+				$('<a href="#navPanel" class="navPanelToggle"></a>')
+					.appendTo($body);
 
-		// Posts.
-			var $posts = $('.post');
+			// Navigation Panel.
+				$(
+					'<div id="navPanel">' +
+						$('#nav').html() +
+						'<a href="#navPanel" class="close"></a>' +
+					'</div>'
+				)
+					.appendTo($body)
+					.panel({
+						delay: 500,
+						hideOnClick: true,
+						hideOnSwipe: true,
+						resetScroll: true,
+						resetForms: true,
+						side: 'right'
+					});
 
-			$posts.each(function() {
+			// Fix: Remove transitions on WP<10 (poor/buggy performance).
+				if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)
+					$('#navPanel')
+						.css('transition', 'none');
 
-				var $this = $(this),
-					$image = $this.find('.image'), $img = $image.find('img'),
-					x;
-
-				// Set image.
-					$image.css('background-image', 'url(' + $img.attr('src') + ')');
-
-				// Set position.
-					if (x = $img.data('position'))
-						$image.css('background-position', x);
-
-			});
 
 	});
 
