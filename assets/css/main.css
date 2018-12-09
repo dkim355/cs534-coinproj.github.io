@@ -1998,12 +1998,12 @@
 			}
 
 			.feature-grid .feature .image {
-				width: 30%;
+				width: 60%;
 			}
 
 				.feature-grid .feature .image img {
 					display: inline;
-					max-width: 100%;
+					max-width: 150%;
 				}
 
 			.feature-grid .feature:nth-child(odd) .content, .feature-grid .feature:nth-child(odd) .image {
